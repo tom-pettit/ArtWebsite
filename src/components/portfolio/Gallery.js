@@ -1,9 +1,9 @@
 import React from 'react';
-import Piece from './Piece'
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Typography from '@material-ui/core/Typography';
+import {withRouter} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +46,15 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const Gallery = ({pieces}) => {
+
+
+
+const Gallery = ({pieces, history}) => {
     const classes = useStyles();
+    const viewPiece = (e) => {
+        var image_id = e.target.id
+        history.push('/view_piece/'+image_id)
+    }
 
     return (
         <div style={{textAlign: 'center'}}>
@@ -58,8 +65,8 @@ const Gallery = ({pieces}) => {
                 <GridList cellHeight={160} className={classes.gridList} cols={3} spacing={10}>
                     { pieces && pieces.map((piece) => (
 
-                        <GridListTile key={piece.imageurl} cols={1} style={{overflow: 'hidden'}}>
-                            <img src={piece.imageurl}/>
+                        <GridListTile key={piece.imageurl} cols={1} style={{overflow: 'hidden'}} onClick={viewPiece}>
+                            <img id={piece.id} src={piece.imageurl}/>
                         </GridListTile>
                         
                     ))}
@@ -70,4 +77,4 @@ const Gallery = ({pieces}) => {
                 
 
 
-export default Gallery
+export default withRouter(Gallery)
