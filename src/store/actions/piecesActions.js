@@ -13,3 +13,20 @@ export const addPiece = (piece) => {
         })
     }
 }
+
+export const addForSalePiece = (piece) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        // async call to add data to DB goes here
+        const firestore = getFirestore()
+        firestore.collection('for_sale').add({
+            title: piece.title,
+            description: piece.description,
+            imageurl: piece.imageurl,
+            price: piece.price
+        }).then(() => {
+            dispatch({ type: 'CREATE_FORSALE_PIECE', piece: piece})
+        }).catch((err) => {
+            dispatch({ type: 'CREATE_FORSALE_PIECE_ERROR', error: err})
+        })
+    }
+}
