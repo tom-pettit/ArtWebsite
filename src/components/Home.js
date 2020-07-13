@@ -103,7 +103,7 @@ const Home = () => {
                       <div style={{textAlign: 'center', width:'100%'}}>
                         <Button href='/portfolio' style={{display: 'inline-block', color:'grey'}}>Portfolio</Button>
                         <Button href='/shop' style={{display: 'inline-block', color:'grey'}}>Shop</Button>
-                        <Button href='' style={{display: 'inline-block', color:'grey'}}>Instagram</Button>
+                        <Button href='https://www.instagram.com/hanimaf/?igshid=8fwby1mosggb' target='_blank' style={{display: 'inline-block', color:'grey'}}>Instagram</Button>
                       </div>
                   </CardActions>
               </div>
