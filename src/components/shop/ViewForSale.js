@@ -11,6 +11,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BackButtonNavbar from "../navbars/BackButtonNavbar";
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteButtonForSaleNavbar from '../navbars/DeleteButtonForSaleNavbar'
 
 
 
@@ -152,12 +153,12 @@ const useStyles = makeStyles((theme) => ({
 
 const ViewForSale = (props) => {
     const classes = useStyles()
-    const { for_sale_piece } = props;
+    const { for_sale_piece, deleteForSaleError, deleteForSaleSuccess } = props;
 
     if (for_sale_piece) {
         return(
             <div>
-                <BackButtonNavbar />
+                <DeleteButtonForSaleNavbar piece={for_sale_piece} id={props.match.params.id}/>
                 <div className="row container" className={classes.article} style={{fontFamily: 'Raleway'}}>
                     <div className={classes.box}>
                         <Card className={classes.root}>
@@ -191,8 +192,16 @@ const ViewForSale = (props) => {
             </div>
     )} else {
         return (
-            <div className="row container" className={classes.article} style={{fontFamily: 'Work Sans'}}>
-                <p>Loading article...</p>
+            <div>
+                <BackButtonNavbar />
+                <div className="row container" className={classes.article} style={{fontFamily: 'Work Sans'}}>
+                    <p style={{fontFamily: 'Work Sans', fontWeight: 'bold', color: 'red'}}>
+                        {deleteForSaleError ? deleteForSaleError : null}
+                    </p>
+                    <p style={{fontFamily: 'Work Sans', fontWeight: 'bold', color: 'green'}}>
+                        {deleteForSaleSuccess ? deleteForSaleSuccess : null}
+                    </p>
+                </div>
             </div>
         )
     }
@@ -204,7 +213,9 @@ const mapStateToProps = (state, ownProps) => {
     const for_sale = state.firestore.data.for_sale
     const for_sale_piece = for_sale ? for_sale[id] : null
     return {
-        for_sale_piece: for_sale_piece
+        for_sale_piece: for_sale_piece,
+        deleteForSaleError: state.piece.deleteForSaleError,
+        deleteForSaleSuccess: state.piece.deleteForSaleSuccess,
     }
 }
 

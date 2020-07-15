@@ -9,6 +9,7 @@ const AddNewForSaleButton = (props) => {
     console.log(props)
     const {auth} = props
     const editButton = auth.uid ? <Button href='/add_piece_for_sale' color="inherit"><AddIcon color='black' /></Button> : <Button href='/sign_in' color="inherit"><FaceIcon color='black' /></Button>
+    
     return (
         <div>{editButton}</div>
         

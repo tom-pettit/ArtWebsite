@@ -8,8 +8,8 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import BackButtonNavbar from "../navbars/BackButtonNavbar";
-
+import DeleteButtonNavbar from '../navbars/DeleteButtonPieceNavbar'
+import BackButtonNavbar from '../navbars/BackButtonNavbar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -149,12 +149,14 @@ const useStyles = makeStyles((theme) => ({
 
 const ViewPiece = (props) => {
     const classes = useStyles()
-    const { piece } = props;
+    const { piece, deleteSuccess, deleteError } = props;
+    const id = props.match.params.id
+    console.log('VIEWW PIECE PROPS', props)
 
     if (piece) {
         return(
             <div>
-                <BackButtonNavbar />
+                <DeleteButtonNavbar piece={piece} id={id} />
                 <div className="row container" className={classes.article} style={{fontFamily: 'Raleway'}}>
                     <div className={classes.box}>
                         <Card className={classes.root}>
@@ -180,8 +182,16 @@ const ViewPiece = (props) => {
             </div>
     )} else {
         return (
-            <div className="row container" className={classes.article} style={{fontFamily: 'Work Sans'}}>
-                <p>Loading article...</p>
+            <div>
+                <BackButtonNavbar />
+                <div className="row container" className={classes.article} style={{fontFamily: 'Work Sans'}}>
+                    <p style={{fontFamily: 'Work Sans', fontWeight: 'bold', color: 'red'}}>
+                        {deleteError ? deleteError : null}
+                    </p>
+                    <p style={{fontFamily: 'Work Sans', fontWeight: 'bold', color: 'green'}}>
+                        {deleteSuccess ? deleteSuccess : null}
+                    </p>
+                </div>
             </div>
         )
     }
@@ -193,6 +203,8 @@ const mapStateToProps = (state, ownProps) => {
     const pieces = state.firestore.data.pieces
     const piece = pieces ? pieces[id] : null
     return {
+        deleteError: state.piece.deleteError,
+        deleteSuccess: state.piece.deleteSuccess,
         piece: piece
     }
 }
