@@ -19,7 +19,7 @@ class DeleteButtonForSaleNavbar extends React.Component {
     }
 
     goBack= () => {
-        this.props.history.goBack()
+        this.props.history.push('/shop')
     }
 
     render() {

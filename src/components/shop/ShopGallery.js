@@ -65,6 +65,7 @@ const ShopGallery = ({for_sale, history}) => {
         history.push('/for_sale/'+image_id)
     }
 
+
     return (
         <div style={{textAlign: 'center'}}>
             <Typography component="h2" variant="h2" className={classes.title}>
@@ -74,12 +75,12 @@ const ShopGallery = ({for_sale, history}) => {
                 <GridList cellHeight={250} className={classes.gridList} cols={3} spacing={10}>
                     { for_sale && for_sale.map((piece) => (
 
-                        <GridListTile key={for_sale.imageurl} cols={1} style={{overflow: 'hidden'}} onClick={view_for_sale}>
+                        <GridListTile key={piece.imageurl} cols={1} style={{overflow: 'hidden'}} onClick={view_for_sale}>
                             <img id={piece.id} src={piece.imageurl}/>
                             <GridListTileBar
                                 id={piece.id}
                                 className = {classes.piecedesc}
-                                title={piece.title}
+                                title={<span  onClick={view_for_sale} id={piece.id}>{piece.title}</span>}
                                 onClick={view_for_sale}
                                 subtitle={<span  onClick={view_for_sale} id={piece.id}>{piece.description}<br></br>Price: {piece.price}</span>}
                             />

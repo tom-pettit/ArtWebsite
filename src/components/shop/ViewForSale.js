@@ -152,45 +152,75 @@ const useStyles = makeStyles((theme) => ({
   
 
 const ViewForSale = (props) => {
+    console.log('PROPS', props)
     const classes = useStyles()
     const { for_sale_piece, deleteForSaleError, deleteForSaleSuccess } = props;
 
     if (for_sale_piece) {
-        return(
-            <div>
-                <DeleteButtonForSaleNavbar piece={for_sale_piece} id={props.match.params.id}/>
-                <div className="row container" className={classes.article} style={{fontFamily: 'Raleway'}}>
-                    <div className={classes.box}>
-                        <Card className={classes.root}>
-                            <div className={classes.details}>
-                                <CardContent className={classes.content}>
-                                <Typography component="h4" variant="h4" className={classes.cardtitle} style={{fontFamily: 'Work Sans'}}>
-                                    {for_sale_piece.title}
-                                </Typography>
-                                <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans', fontWeight:'600'}}>
-                                    Price: {for_sale_piece.price}
-                                </Typography>
-                                <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans'}}>
-                                    {for_sale_piece.description}
-                                </Typography>
-                                <br></br>
-                                <br></br>
+        if (props.match.params.id !== '') {
+            return(
+                <div>
+                    <DeleteButtonForSaleNavbar piece={for_sale_piece} id={props.match.params.id}/>
+                    <div className="row container" className={classes.article} style={{fontFamily: 'Raleway'}}>
+                        <div className={classes.box}>
+                            <Card className={classes.root}>
+                                <div className={classes.details}>
+                                    <CardContent className={classes.content}>
+                                    <Typography component="h4" variant="h4" className={classes.cardtitle} style={{fontFamily: 'Work Sans'}}>
+                                        {for_sale_piece.title}
+                                    </Typography>
+                                    <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans', fontWeight:'600'}}>
+                                        Price: {for_sale_piece.price}
+                                    </Typography>
+                                    <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans'}}>
+                                        {for_sale_piece.description}
+                                    </Typography>
+                                    <br></br>
+                                    <br></br>
 
-                                <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans'}}>
-                                Please <a href='mailto:imafidonhannah@gmail.com' style={{textDecoration: 'none', color: 'black'}}><span style={{fontWeight: 'bold'}}>email me</span></a> if you are interested
-                                </Typography>
+                                    <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans'}}>
+                                    Please <a href='mailto:imafidonhannah@gmail.com' style={{textDecoration: 'none', color: 'black'}}><span style={{fontWeight: 'bold'}}>email me</span></a> if you are interested
+                                    </Typography>
 
-                                </CardContent>
-                            </div>
-                            <CardMedia
-                                className={classes.cover}
-                                image={for_sale_piece.imageurl}
-                            />
-                        </Card>
+                                    </CardContent>
+                                </div>
+                                <CardMedia
+                                    className={classes.cover}
+                                    image={for_sale_piece.imageurl}
+                                />
+                            </Card>
+                        </div>
                     </div>
                 </div>
-            </div>
-    )} else {
+            )
+        } else {
+            return(
+                <div>
+                    <BackButtonNavbar />
+                    <div className="row container" className={classes.article} style={{fontFamily: 'Raleway'}}>
+                        <div className={classes.box}>
+                            <Card className={classes.root}>
+                                <div className={classes.details}>
+                                    <CardContent className={classes.content}>
+                                    <Typography component="h4" variant="h4" className={classes.cardtitle} style={{fontFamily: 'Work Sans'}}>
+                                        Looks like this piece can't be found! 
+                                    </Typography>
+                                    <Typography className={classes.carddescription} style={{fontFamily: 'Work Sans', fontWeight:'600'}}>
+                                        Try clicking on the text of the piece instead!
+                                    </Typography>
+
+                                    <br></br>
+                                    <br></br>
+
+                                    </CardContent>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    } else {
         return (
             <div>
                 <BackButtonNavbar />
